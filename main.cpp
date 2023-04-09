@@ -5,10 +5,10 @@
 using namespace std;
 
 string affichageClavier(Clavier c){
-    string res = "";
+    string res = "Clavier :\n";
     for(int j = 1; j<=4; j++){
         for(int i = 1; i <= 10; i++){
-            res = res + " " + c.getTouche(i, j);
+            res = res + " " + c.getTouche(j, i);
         }
         res = res + "\n";
     }
@@ -16,7 +16,7 @@ string affichageClavier(Clavier c){
 }
 
 int main() {
-    std::cout << "Essentiellement, il n'y a rien.";
+    std::cout << "Essentiellement, il n'y a rien." <<endl;
     Clavier c;
     std::cout << affichageClavier(c);
     return 0;
