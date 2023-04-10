@@ -9,13 +9,18 @@
 
 using namespace std;
 
+Clavier::Clavier(int ajoutEntropie) {
+    this->randomize(ajoutEntropie);
+}
+
+//si plusieurs utilisations de ce constructeur à la chaine, trop de claviers similaires
 Clavier::Clavier() {
-    this->randomize();
+    this->randomize(0);
 }
 
 //reset le clavier dans un état au hasard
-void Clavier::randomize() {
-    srand (time(NULL));
+void Clavier::randomize(int ajoutEntropie) {
+    srand (time(NULL) + ajoutEntropie);
     char packTouches[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     
     //on remplit le clavier avec du "rien" (*)
@@ -72,6 +77,7 @@ float Clavier::getDistanceBetweenKeys(char touche1, char touche2){
     return (t1x - t2x)*(t1x - t2x) + (t1y - t2y)*(t1y - t2y);
 }
 
+//évaluation de la performance du clavier
 float Clavier::getScore(){
 
     float score = 0;
@@ -111,4 +117,12 @@ float Clavier::getScore(){
     }
     
     return score; // le meilleur score tend vers 0 
+}
+
+string Clavier::getStringLigne(int ligne) {
+    string res = "";
+    for(int i = 1; i <= 10; i++){
+        res = res + " " + this->getTouche(ligne, i);
+    }
+    return res;
 }

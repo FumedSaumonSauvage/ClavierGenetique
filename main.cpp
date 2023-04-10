@@ -1,9 +1,11 @@
 #include <iostream>
 #include <stdlib.h>
 #include "clavier.hpp"
+#include "tribu.hpp"
 
 using namespace std;
 
+//obsolète, que pour du débug
 string affichageClavier(Clavier c){
     string res = "Clavier :\n";
     for(int j = 1; j<=4; j++){
@@ -16,15 +18,11 @@ string affichageClavier(Clavier c){
 }
 
 int main() {
-    std::cout << "Essentiellement, il n'y a rien." <<endl;
-    Clavier c;
-    std::cout << affichageClavier(c) << endl;
-    float zebi = c.getDistanceBetweenKeys('a', 'b');
-    std::cout << zebi << endl;
-    zebi = c.getScore();
-    std::cout << zebi << endl;
+    Tribu t(30);
+    t.displayPopulation(0, 5);
     return 0;
 }
 
 
-//TODO: revoir la base de l'algo génétique pur éviter de se planter dans les probabilités de mutation, et revoir comment on fait du crossing over
+//TODO : implémenter le tri dans l'affichage de la population
+//TODO : ajouter de l'entropie dans le générateur de hasard de la population
