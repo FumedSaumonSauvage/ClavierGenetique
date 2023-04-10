@@ -1,4 +1,6 @@
 #include "clavier.hpp"
+#include <iostream>
+#include <fstream>
 #include <stdlib.h>
 #include <vector>
 #include <string>
@@ -68,4 +70,45 @@ float Clavier::getDistanceBetweenKeys(char touche1, char touche2){
     float t1y = this->getKeyCoordinates(touche1).at(1);
     float t2y = this->getKeyCoordinates(touche2).at(1);
     return (t1x - t2x)*(t1x - t2x) + (t1y - t2y)*(t1y - t2y);
+}
+
+float Clavier::getScore(){
+
+    float score = 0;
+    float bigramme[26][26];
+    char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
+    // Ouverture du tableau
+    ifstream fichier("freqBigrammes.txt", ios::in);  // on ouvre le fichier en lecture
+    if(fichier){   
+
+        // Création du bigramme
+        string mot;
+        float nombre;
+        string ligne;
+        getline(fichier, ligne); //On lit une ligne complète (Pour supprimer la première ligne)
+        for(int i = 0; i < 26 ; i++){
+            fichier >> mot;    //Lit un mot depuis le fichier (Pour supprimer le premier mot)
+            for(int j = 0; j < 26 ; j++){
+                fichier >> nombre;
+                bigramme[i][j] = nombre;
+            }
+        }
+
+        // On applique la méthode à toutes les association de pair
+        for(int toucheA= 0 ; toucheA < 26; ++toucheA){
+                for(int toucheB=0; toucheB < 26; ++toucheB){
+                    score += bigramme[toucheA][toucheB] * getDistanceBetweenKeys(alphabet[toucheA], alphabet[toucheB]); 
+                }
+        }
+        
+        
+        
+        fichier.close();  // on ferme le fichier
+    }else{  // si erreur
+        cerr << "Impossible d'ouvrir le fichier !" << endl;
+        score = -1;
+    }
+    
+    return score; // le meilleur score tend vers 0 
 }

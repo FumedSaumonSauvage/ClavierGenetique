@@ -21,6 +21,8 @@ int main() {
     std::cout << affichageClavier(c) << endl;
     float zebi = c.getDistanceBetweenKeys('a', 'b');
     std::cout << zebi << endl;
+    zebi = c.getScore();
+    std::cout << zebi << endl;
     return 0;
 }
 
