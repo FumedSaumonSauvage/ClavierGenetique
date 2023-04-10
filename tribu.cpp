@@ -30,14 +30,18 @@ Clavier Tribu::getClavier(int index){
 //sort = 0: pas de tri ; sort = 1 : tri par meilleur ; sort = 3: tri par pire
 //nbColonnes : nombre de claviers en largeur à afficher
 void Tribu::displayPopulation(int sort, int nbColonnes){
+
+    //IMPLÉMENTER LE TRI!!!!!!
+
     int nbCol = (nbColonnes>0) ? nbColonnes : 1 ;
     int cptClavier = 0;
     while(cptClavier < this->count){
         for(int ligne = 1; ligne <=4; ligne++){
             string res = "";
             for(int i = cptClavier; i<nbCol + cptClavier; i++){
-                //get ligne clavier
-                res = res + population[i].getStringLigne(ligne) + "     ";
+                if(i < this->count){
+                    res = res + population[i].getStringLigne(ligne) + "     ";
+                }
             }
             cout << res << endl;
         }
@@ -45,4 +49,27 @@ void Tribu::displayPopulation(int sort, int nbColonnes){
 
         cptClavier+=nbCol;
     }
+}
+
+// "Non... Il me faut les meilleurs"
+// Renvoie les indices des individus dans le top X%, X en paramètre
+vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
+    float scores[this->count];
+    for(int i = 0; i < this->count; i++){
+        scores[i] = population[i].getScore();
+    }
+    vector<int> res;
+    for(int i = 0; i < percentage*count/100; i++){
+        float max = -1;
+        int indiceMax = 0;
+        for(int j = 0; j < this->count; j++){
+            if(max < scores[j]){
+                indiceMax = j;
+                max = scores[j];
+            }
+        }
+        res.push_back(indiceMax);
+        scores[indiceMax] = -1;
+    }
+    return res;
 }

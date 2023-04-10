@@ -9,6 +9,7 @@ class Tribu {
     int getCount();
     Clavier getClavier(int index);
     void displayPopulation(int sort, int nbColonnes);
+    std::vector<int> jeVeuxLesMeilleurs(int percentage);
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca
