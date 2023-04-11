@@ -11,6 +11,7 @@ class Tribu {
     void displayPopulation(int sort, int nbColonnes);
     std::vector<int> jeVeuxLesMeilleurs(int percentage);
     void croiserPopulation(int percentageDeMeilleurs);
+    void sortByBest();
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca

@@ -13,6 +13,13 @@ Clavier::Clavier(int ajoutEntropie) {
     this->randomize(ajoutEntropie);
 }
 
+//constructeur de copie
+Clavier::Clavier(const Clavier& c){
+    for(int i = 0; i < 40; i++){
+         this->touches[i] = c.getTouche(i);
+    }
+}
+
 //si plusieurs utilisations de ce constructeur à la chaine, trop de claviers similaires
 Clavier::Clavier() {
     this->randomize(0);
@@ -48,7 +55,7 @@ char Clavier::getTouche(int ln, int col){
     return touches[(ln - 1)*10 + col -1];
 }
 
-char Clavier::getTouche(int index){
+char Clavier::getTouche(int index) const{
     return touches[index];
 }
 
@@ -159,7 +166,7 @@ int Clavier::correctErrors(){
     for(char lettre : alphabet){
         vector<int> emplacementsRencontres;
         for(int i = 0; i < 40; i++){
-            if(this->touches[i] = lettre){
+            if(this->touches[i] == lettre){
                 emplacementsRencontres.push_back(i);
             }
         }
@@ -171,6 +178,7 @@ int Clavier::correctErrors(){
                 int randomIndex = rand() % 40;
                 if(touches[randomIndex] == '.'){
                     touches[randomIndex] = lettre;
+                    collision = 0;
                 }
                 cptEntropie++;
             }
@@ -180,4 +188,5 @@ int Clavier::correctErrors(){
             nbErrors++;
         }
     }
+    return nbErrors;
 }

@@ -31,9 +31,6 @@ Clavier Tribu::getClavier(int index){
 //sort = 0: pas de tri ; sort = 1 : tri par meilleur ; sort = 3: tri par pire
 //nbColonnes : nombre de claviers en largeur à afficher
 void Tribu::displayPopulation(int sort, int nbColonnes){
-
-    //IMPLÉMENTER LE TRI!!!!!!
-
     int nbCol = (nbColonnes>0) ? nbColonnes : 1 ;
     int cptClavier = 0;
     while(cptClavier < this->count){
@@ -46,7 +43,14 @@ void Tribu::displayPopulation(int sort, int nbColonnes){
             }
             cout << res << endl;
         }
-        cout << endl;
+        //affichage des scores
+        for(int i = cptClavier; i<nbCol + cptClavier; i++){
+            if(i < this->count){
+                cout << "       " << population[i].getScore() << "       ";
+            }
+        }
+
+        cout << endl << endl;
 
         cptClavier+=nbCol;
     }
@@ -76,16 +80,6 @@ vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
 }
 
 void Tribu::croiserPopulation(int percentageDeMeilleurs){
-
-    //prendre les meilleurs OK
-    //faire des couples de tableaux dans le pif absolu OK
-    //pour chaque couple de tableaux:
-    //  si une lettre est en position dans les deux, la garder
-    //  sinon, prendre une lettre de chaque tour à tour
-    //corriger la sortie des tableaux:
-    //  Remplacer les doublons par un point (pur pif)
-    //  S'il manque une lettre quelque part, la caser au hasard parmis les points
-
     //on récupère les meilleurs
     int nbMeilleurs = percentageDeMeilleurs*count/100;
     Clavier lesMeilleurs[nbMeilleurs];
@@ -103,11 +97,12 @@ void Tribu::croiserPopulation(int percentageDeMeilleurs){
     }
 
     //mixage génétique
+    vector<Clavier> ensembleSuccesseurs;
     for(vector<Clavier> couple : coupleClaviers){
         Clavier successeur;
         successeur.blank();
         vector<int> touchesCommunes;
-        //si une lettre es à la même place dans les deux, on la garde
+        //si une lettre est à la même place dans les deux, on la garde
         for(int j = 0; j < 40; j++){
             if(couple.at(0).getTouche(j) == couple.at(1).getTouche(j) && couple.at(1).getTouche(j) != '.'){
                 successeur.setTouche(j, couple.at(0).getTouche(j));
@@ -116,8 +111,33 @@ void Tribu::croiserPopulation(int percentageDeMeilleurs){
         }
         //sinon, on croise les touches en prenant au pif le parent chez qui on garde
         for(int j = 0; j < 40 && find(touchesCommunes.begin(), touchesCommunes.end(), j) == touchesCommunes.end(); j++){
-            //zbeub zbeub
+            srand(time(NULL)+j);
+            successeur.setTouche(j, couple.at(rand()%2).getTouche(j));
         }
+        successeur.correctErrors();
+        ensembleSuccesseurs.push_back(Clavier(successeur));
+    }
 
+    for(int i = 0; i < ensembleSuccesseurs.size(); i++){
+        population[i] = ensembleSuccesseurs.at(i);
+    }
+
+    this->sortByBest();
+}
+
+void Tribu::sortByBest(){
+    //copie du tableau
+    Clavier temp[count];
+    for(int i = 0; i < count; i++){
+        temp[i] = population[i];
+    }
+
+    vector<int> res = this->jeVeuxLesMeilleurs(100);
+
+    if(res.size() != count) cerr << "Erreur taille res" << endl;
+
+    //implantation des meilleurs
+    for(int i = 0; i < count; i++){
+        population[i] = temp[res.at(i)];
     }
 }

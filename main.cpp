@@ -3,6 +3,7 @@
 #include "clavier.hpp"
 #include "tribu.hpp"
 #include <vector>
+#include <unistd.h>
 
 using namespace std;
 
@@ -18,7 +19,15 @@ int main(int argc, char* argv[]) {
         sort = 0;
     }
     Tribu t(nbIndividus);
+    t.sortByBest();
     t.displayPopulation(0, tailleLigne);
+
+    for(int i = 0; i < 10; i++){
+        t.croiserPopulation(30);
+        t.displayPopulation(0, tailleLigne);
+        cout << "Croisement " << i << endl;
+        sleep(1); //mettre plus court
+    }
 
     //test de la sélection
     cout << "Meilleurs: ";
@@ -26,9 +35,7 @@ int main(int argc, char* argv[]) {
         cout << i << ", ";
     }
     cout << endl;
-    t.croiserPopulation(10);
+
+    cout << "fin exec" << endl;
     return 0;
 }
-
-
-//TODO : implémenter le tri dans l'affichage de la population
