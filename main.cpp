@@ -43,4 +43,3 @@ int main(int argc, char* argv[]) {
 
 
 //TODO : implémenter le tri dans l'affichage de la population
-//TODO : ajouter de l'entropie dans le générateur de hasard de la population

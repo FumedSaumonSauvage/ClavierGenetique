@@ -2,6 +2,7 @@
 #define CLAVIER_HPP
 
 #include <vector>
+#include <string>
 
 class Clavier {
 public:
