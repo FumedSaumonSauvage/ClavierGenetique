@@ -73,3 +73,15 @@ vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
     }
     return res;
 }
+
+void Tribu::croiserPopulation(int percentageDeMeilleurs){
+    //prendre les meilleurs
+    //faire des couples de tableaux dans le pifa bsolu
+    //pour chaque couple de tableaux:
+    //  si une lettre est en position dans les deux, la garder
+    //  sinon, prendre une lettre de chaque tour à tour
+    //corriger la sortie des tableaux:
+    //  Remplacer les doublons par un point (pur pif)
+    //  S'il manque une lettre quelque part, la caser au hasard parmis les points
+    
+}
