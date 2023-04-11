@@ -7,6 +7,7 @@
 #include <string>
 #include <cctype> //toupper
 #include <time.h> //init rand
+#include <algorithm> //find
 
 using namespace std;
 
@@ -51,7 +52,7 @@ void Tribu::displayPopulation(int sort, int nbColonnes){
     }
 }
 
-// "Non... Il me faut les meilleurs"
+// "Non... Je veux les meilleurs"
 // Renvoie les indices des individus dans le top X%, X en paramètre
 vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
     float scores[this->count];
@@ -76,8 +77,8 @@ vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
 
 void Tribu::croiserPopulation(int percentageDeMeilleurs){
 
-    //prendre les meilleurs
-    //faire des couples de tableaux dans le pifa bsolu
+    //prendre les meilleurs OK
+    //faire des couples de tableaux dans le pif absolu OK
     //pour chaque couple de tableaux:
     //  si une lettre est en position dans les deux, la garder
     //  sinon, prendre une lettre de chaque tour à tour
@@ -85,14 +86,38 @@ void Tribu::croiserPopulation(int percentageDeMeilleurs){
     //  Remplacer les doublons par un point (pur pif)
     //  S'il manque une lettre quelque part, la caser au hasard parmis les points
 
-    Clavier lesMeilleurs[percentageDeMeilleurs];
+    //on récupère les meilleurs
+    int nbMeilleurs = percentageDeMeilleurs*count/100;
+    Clavier lesMeilleurs[nbMeilleurs];
     int j = 0;
     for(int i : jeVeuxLesMeilleurs(percentageDeMeilleurs)){
         lesMeilleurs[j] =  getClavier(i);
         j++;
     }
-    for(int i = 0; i < 5 ; i++){
-        
+
+    //on fait des couples de claviers dans le hasard le plus total
+    vector<Clavier> coupleClaviers[nbMeilleurs]; //autant de couples que de champions, on peut faire un descendant par couple sans perte de population
+    for(int i = 0; i < nbMeilleurs; i++){
+        coupleClaviers[i].push_back(lesMeilleurs[i]);
+        coupleClaviers[i].push_back(lesMeilleurs[rand() % nbMeilleurs]); //on a potentiellement deux fois le même clavier, mais ca arrive peu de fois sur un ensemble grand
     }
-    
+
+    //mixage génétique
+    for(vector<Clavier> couple : coupleClaviers){
+        Clavier successeur;
+        successeur.blank();
+        vector<int> touchesCommunes;
+        //si une lettre es à la même place dans les deux, on la garde
+        for(int j = 0; j < 40; j++){
+            if(couple.at(0).getTouche(j) == couple.at(1).getTouche(j) && couple.at(1).getTouche(j) != '.'){
+                successeur.setTouche(j, couple.at(0).getTouche(j));
+                touchesCommunes.push_back(j);
+            }
+        }
+        //sinon, on croise les touches en prenant au pif le parent chez qui on garde
+        for(int j = 0; j < 40 && find(touchesCommunes.begin(), touchesCommunes.end(), j) == touchesCommunes.end(); j++){
+            //zbeub zbeub
+        }
+
+    }
 }

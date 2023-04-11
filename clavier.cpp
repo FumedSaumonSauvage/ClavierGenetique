@@ -48,12 +48,20 @@ char Clavier::getTouche(int ln, int col){
     return touches[(ln - 1)*10 + col -1];
 }
 
+char Clavier::getTouche(int index){
+    return touches[index];
+}
+
 void Clavier::setTouche(vector<int> index, char newTouche){
     touches[(index.at(0) - 1)*10 + index.at(1) -1] = newTouche;
 }
 
 void Clavier::setTouche(int ln, int col, char newTouche){
     touches[(ln - 1)*10 + col -1] = newTouche;
+}
+
+void Clavier::setTouche(int index, char newTouche){
+    touches[index] = newTouche;
 }
 
 string Clavier::affichageClavier(){
@@ -65,6 +73,12 @@ string Clavier::affichageClavier(){
         res = res + "\n";
     }
     return res;
+}
+
+void Clavier::blank(){
+    for(int i = 0; i<40; i++){
+        this->touches[i] = '.';
+    }
 }
 
 //renvoie les coordonnées d'une touche en particulier sur le clavier (origine en haut à gauche)
@@ -136,4 +150,34 @@ string Clavier::getStringLigne(int ligne) {
         res = res + " " + this->getTouche(ligne, i);
     }
     return res;
+}
+
+//lorsqu'un clavier n'est pas intègre, corrige les erreurs associées de ce clavier
+int Clavier::correctErrors(){
+    int nbErrors = 0;
+    char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    for(char lettre : alphabet){
+        vector<int> emplacementsRencontres;
+        for(int i = 0; i < 40; i++){
+            if(this->touches[i] = lettre){
+                emplacementsRencontres.push_back(i);
+            }
+        }
+        if(emplacementsRencontres.size() == 0){ //on ajoute la lettre
+            bool collision = 1;
+            int cptEntropie = 0;
+            while(collision){
+                srand(time(NULL) + cptEntropie);
+                int randomIndex = rand() % 40;
+                if(touches[randomIndex] == '.'){
+                    touches[randomIndex] = lettre;
+                }
+                cptEntropie++;
+            }
+            nbErrors++;
+        } else if(emplacementsRencontres.size() == 2){ //on retire une fois la lettre sur les deux
+            this->touches[emplacementsRencontres.at(rand() %2)] = '.';
+            nbErrors++;
+        }
+    }
 }
