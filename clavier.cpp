@@ -56,6 +56,17 @@ void Clavier::setTouche(int ln, int col, char newTouche){
     touches[(ln - 1)*10 + col -1] = newTouche;
 }
 
+string Clavier::affichageClavier(){
+    string res;
+    for(int j = 1; j<=4; j++){
+        for(int i = 1; i <= 10; i++){
+            res = res + " " + getTouche(j, i);
+        }
+        res = res + "\n";
+    }
+    return res;
+}
+
 //renvoie les coordonnées d'une touche en particulier sur le clavier (origine en haut à gauche)
 //NOTE : marche aussi avec la touche en minuscule
 std::vector<int> Clavier::getKeyCoordinates(char touche){

@@ -6,18 +6,6 @@
 
 using namespace std;
 
-//obsolète, que pour du débug
-string affichageClavier(Clavier c){
-    string res = "Clavier :\n";
-    for(int j = 1; j<=4; j++){
-        for(int i = 1; i <= 10; i++){
-            res = res + " " + c.getTouche(j, i);
-        }
-        res = res + "\n";
-    }
-    return res;
-}
-
 int main(int argc, char* argv[]) {
     int nbIndividus, tailleLigne, sort;
     if(argc>1){
@@ -38,6 +26,7 @@ int main(int argc, char* argv[]) {
         cout << i << ", ";
     }
     cout << endl;
+    t.croiserPopulation(10);
     return 0;
 }
 

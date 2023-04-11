@@ -75,6 +75,7 @@ vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
 }
 
 void Tribu::croiserPopulation(int percentageDeMeilleurs){
+
     //prendre les meilleurs
     //faire des couples de tableaux dans le pifa bsolu
     //pour chaque couple de tableaux:
@@ -83,5 +84,15 @@ void Tribu::croiserPopulation(int percentageDeMeilleurs){
     //corriger la sortie des tableaux:
     //  Remplacer les doublons par un point (pur pif)
     //  S'il manque une lettre quelque part, la caser au hasard parmis les points
+
+    Clavier lesMeilleurs[percentageDeMeilleurs];
+    int j = 0;
+    for(int i : jeVeuxLesMeilleurs(percentageDeMeilleurs)){
+        lesMeilleurs[j] =  getClavier(i);
+        j++;
+    }
+    for(int i = 0; i < 5 ; i++){
+        
+    }
     
 }
