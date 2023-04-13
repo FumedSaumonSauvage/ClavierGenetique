@@ -9,6 +9,7 @@
 #include <time.h> //init rand
 #include <algorithm> //find
 
+
 using namespace std;
 
 Tribu::Tribu(int cardinal){

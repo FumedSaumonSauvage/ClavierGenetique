@@ -4,7 +4,7 @@
 #include "tribu.hpp"
 #include <vector>
 #include <unistd.h>
-#include <boost/program_options.hpp>
+#include <cstdlib>
 
 
 
@@ -18,7 +18,8 @@ int percentageMutation = 50;
 int nbMaxMutations = 4;
 int nbIndividus = 50;
 int tailleLigne = 7;
-int sortage = 0;
+int waitTime = 1;
+
 
 void options(int argc, char* argv[]){
     for(int i = 1; i < argc; i++){
@@ -37,14 +38,15 @@ void options(int argc, char* argv[]){
             nbIndividus = atoi(argv[i+1]);
         }else if(s == "--tailleLigne"){
             tailleLigne = atoi(argv[i+1]);
-        }else if(s == "--sort"){
-            sortage = atoi(argv[i+1]);
+        }else if(s == "--waitTime"){
+            waitTime = atoi(argv[i+1]);
         }
     }    
 }
 
 
 int main(int argc, char* argv[]) {
+
     options(argc, argv); //charge les options si elles sont définies
             
     Tribu t(nbIndividus);
@@ -56,8 +58,9 @@ int main(int argc, char* argv[]) {
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
         t.eliminerConsanguinité(percentageConsanguinite); //par défaut on accepte 5% de consanguinité
-        t.displayPopulation(sortage, tailleLigne);
-        usleep(100000);
+        t.displayPopulation(0, tailleLigne);
+        usleep(waitTime*100000);
+        //system("clear"); //clear terminal pour lisibilité
     }
 
     //test de la sélection

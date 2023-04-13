@@ -10,8 +10,8 @@
 <li>--nbMaxMutations : nombre maximum de mutations que peut subir un individu lorsqu'il est choisi pour muter (pas de croisement, mutation pure) (default = 4) </li>
 <li>--nbIndividus : nombre d'individus dans la population(default = 50) </li>
 <li>--tailleLigne : Nombre de claviers affichable en largeur dans un terminal, si la valeur est trop grande l'affichage se fera mal. (default pour un écran 1080p : 7) </li>
-<li>--sort : tri? Oui (default: 1); À enlever comme c'est pas utilisé </li>
+<li>--waitTime : attente entre itérations en 1/10eme de seconde (default 1)</li>
 </ul>
 <br>
 <p>
-Exemple: ./main --nbIterations 1 --percentageConsanguinite 2 --percentageCroisement 3 --percentageMutation 4 --nbMaxMutations 5 --nbIndividus 6 --tailleLigne 7 --sort 8 </p>
+Exemple: ./main --nbIterations 1 --percentageConsanguinite 2 --percentageCroisement 3 --percentageMutation 4 --nbMaxMutations 5 --nbIndividus 6 --tailleLigne 7 --waitTime 8 </p>
