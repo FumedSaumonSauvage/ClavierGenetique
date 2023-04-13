@@ -11,6 +11,7 @@ using namespace std;
 
 Clavier::Clavier(int ajoutEntropie) {
     this->randomize(ajoutEntropie);
+    this->ajoutEntropie = rand() % 500; //ajout d'entropie utile pour les opérations de mutation
 }
 
 //constructeur de copie
@@ -191,7 +192,7 @@ int Clavier::correctErrors(){
     return nbErrors;
 }
 
-//mettre en place un générateur d'aléa plus performant
+//permute 2 touches aléatoirement dans le clavier un certain nombre de fois
 void Clavier::mutationAleatoire(int nbPermutations){
     for (int i = 0; i < nbPermutations; i++){
         srand(time(NULL)+ i); //obligatoire pour pas foirer le pseudo aléa
@@ -202,4 +203,15 @@ void Clavier::mutationAleatoire(int nbPermutations){
         touches[source] = touches[dest];
         touches[dest] = temp;
     }
+}
+
+//retourne vrai si le clavier est identique à l'actuel, faux sinon
+bool Clavier::equals(const Clavier& c){
+    bool res = true;
+    for(int i = 0; i < 40; i++){
+        if(this->getTouche(i) != c.getTouche(i)){
+            res = false;
+        }
+    }
+    return res;
 }

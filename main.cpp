@@ -5,10 +5,19 @@
 #include <vector>
 #include <unistd.h>
 
+
+
 using namespace std;
 
 int main(int argc, char* argv[]) {
     int nbIndividus, tailleLigne, sort;
+
+    int nbiterations = 1000;
+    int percentageConsanguinite = 5;
+    int percentageCroisement = 30;
+    int percentageMutation = 50;
+    int nbMaxMutations = 4;
+
     if(argc>1){
         nbIndividus = atoi(argv[1]);
         tailleLigne = atoi(argv[2]);
@@ -22,11 +31,13 @@ int main(int argc, char* argv[]) {
     t.sortByBest();
     t.displayPopulation(0, tailleLigne);
 
-    for(int i = 0; i < 1000; i++){
-        t.croiserPopulation(30, false); //stratégie de remplacement : écrasement des parents
+    for(int i = 0; i < nbiterations; i++){
+        cout << "Croisement " << i << " sur " << nbiterations << endl;
+        t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
+        t.mutation(percentageMutation, nbMaxMutations);
+        t.eliminerConsanguinité(percentageConsanguinite); //par défaut on accepte 5% de consanguinité
         t.displayPopulation(0, tailleLigne);
-        cout << "Croisement " << i << endl;
-        //sleep(1); //mettre plus court
+        usleep(100000);
     }
 
     //test de la sélection
@@ -39,3 +50,8 @@ int main(int argc, char* argv[]) {
     cout << "fin exec" << endl;
     return 0;
 }
+
+
+
+
+//TODO : ajouter la stratégie de remplacement "si l'enfant n'est pas meilleur que la moyenne de ses parents, il est éliminé".

@@ -12,6 +12,8 @@ class Tribu {
     std::vector<int> jeVeuxLesMeilleurs(int percentage);
     void croiserPopulation(int percentageDeMeilleurs, bool remplacerParents);
     void sortByBest();
+    void mutation(int percentage, int maxMutations);
+    void eliminerConsanguinité(int maxPercentageConsanguin);
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca

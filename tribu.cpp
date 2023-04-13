@@ -155,3 +155,25 @@ void Tribu::sortByBest(){
         population[i] = temp[res.at(i)];
     }
 }
+
+//modifier pour accueillir une probabilité à la gauss?
+void Tribu::mutation(int percentage, int maxMutations){
+    for(int i = 0; i < count*percentage / 100; i++){
+        population[rand() % count].mutationAleatoire(rand()%maxMutations); //à changer, gros n'importe quoi de mettre 4 mutations max
+    }
+}
+
+void Tribu::eliminerConsanguinité(int maxPercentageConsanguin){
+    int nbConsanguins = (int)count * maxPercentageConsanguin/100;
+    for(int i = 0; i < count; i++){
+        for(int j = 0; j < i; j++){
+            if(population[j].equals(population[i]) && nbConsanguins >0){
+                nbConsanguins--;
+            }
+            else{
+                population[i].mutationAleatoire(1); //une seule permutation devrait suffire
+            }   
+        }
+    }
+
+}

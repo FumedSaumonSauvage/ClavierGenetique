@@ -26,9 +26,11 @@ std::string getStringLigne(int ligne);
 void blank();
 int correctErrors();
 void mutationAleatoire(int nbPermutation);
+bool equals(const Clavier& c);
 
 private:
     char touches[40];
+    int ajoutEntropie;
 };
 
 #endif
