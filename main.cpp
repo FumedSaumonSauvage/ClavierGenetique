@@ -4,29 +4,49 @@
 #include "tribu.hpp"
 #include <vector>
 #include <unistd.h>
+#include <boost/program_options.hpp>
 
 
 
 using namespace std;
 
+//variables globales pour les options
+int nbiterations = 1000;
+int percentageConsanguinite = 5;
+int percentageCroisement = 30;
+int percentageMutation = 50;
+int nbMaxMutations = 4;
+int nbIndividus = 50;
+int tailleLigne = 7;
+int sortage = 0;
+
+void options(int argc, char* argv[]){
+    for(int i = 1; i < argc; i++){
+        string s = argv[i];
+        if(s == "--nbIterations"){
+            nbiterations = atoi(argv[i+1]);
+        }else if(s == "--percentageConsanguinite"){
+            percentageConsanguinite = atoi(argv[i+1]);
+        }else if(s == "--percentageCroisement"){
+            percentageCroisement = atoi(argv[i+1]);
+        }else if(s == "--percentageMutation"){
+            percentageMutation = atoi(argv[i+1]);
+        }else if(s == "--nbMaxMutations"){
+            nbMaxMutations = atoi(argv[i+1]);
+        }else if(s == "--nbIndividus"){
+            nbIndividus = atoi(argv[i+1]);
+        }else if(s == "--tailleLigne"){
+            tailleLigne = atoi(argv[i+1]);
+        }else if(s == "--sort"){
+            sortage = atoi(argv[i+1]);
+        }
+    }    
+}
+
+
 int main(int argc, char* argv[]) {
-    int nbIndividus, tailleLigne, sort;
-
-    int nbiterations = 1000;
-    int percentageConsanguinite = 5;
-    int percentageCroisement = 30;
-    int percentageMutation = 50;
-    int nbMaxMutations = 4;
-
-    if(argc>1){
-        nbIndividus = atoi(argv[1]);
-        tailleLigne = atoi(argv[2]);
-        sort = 0;
-    } else {
-        nbIndividus = 50;
-        tailleLigne = 10;
-        sort = 0;
-    }
+    options(argc, argv); //charge les options si elles sont définies
+            
     Tribu t(nbIndividus);
     t.sortByBest();
     t.displayPopulation(0, tailleLigne);
@@ -36,7 +56,7 @@ int main(int argc, char* argv[]) {
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
         t.eliminerConsanguinité(percentageConsanguinite); //par défaut on accepte 5% de consanguinité
-        t.displayPopulation(0, tailleLigne);
+        t.displayPopulation(sortage, tailleLigne);
         usleep(100000);
     }
 
