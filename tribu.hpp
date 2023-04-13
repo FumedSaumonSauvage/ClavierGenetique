@@ -10,7 +10,7 @@ class Tribu {
     Clavier getClavier(int index);
     void displayPopulation(int sort, int nbColonnes);
     std::vector<int> jeVeuxLesMeilleurs(int percentage);
-    void croiserPopulation(int percentageDeMeilleurs);
+    void croiserPopulation(int percentageDeMeilleurs, bool remplacerParents);
     void sortByBest();
 
     private:

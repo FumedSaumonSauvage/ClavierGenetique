@@ -190,3 +190,16 @@ int Clavier::correctErrors(){
     }
     return nbErrors;
 }
+
+//mettre en place un générateur d'aléa plus performant
+void Clavier::mutationAleatoire(int nbPermutations){
+    for (int i = 0; i < nbPermutations; i++){
+        srand(time(NULL)+ i); //obligatoire pour pas foirer le pseudo aléa
+        int source = rand() %40;
+        srand(time(NULL)+ i + 1);
+        int dest = rand() %40;
+        char temp = touches[source];
+        touches[source] = touches[dest];
+        touches[dest] = temp;
+    }
+}

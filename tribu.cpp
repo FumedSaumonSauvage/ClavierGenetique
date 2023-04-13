@@ -79,7 +79,14 @@ vector<int> Tribu::jeVeuxLesMeilleurs(int percentage){
     return res;
 }
 
-void Tribu::croiserPopulation(int percentageDeMeilleurs){
+
+//croise les meilleurs de la population entre eux
+//selon l'état du bit de remplacement, on remplace les parents par leurs enfants, ou alors on garde les parents et on remplace les pires par les enfants
+void Tribu::croiserPopulation(int percentageDeMeilleurs, bool remplacerParents){
+    if(percentageDeMeilleurs > 50 && !remplacerParents){
+        cerr << "Stratégie impossible: Trop de progénitures pour remplacer les non-parents sans augmenter la population" << endl;
+    }
+
     //on récupère les meilleurs
     int nbMeilleurs = percentageDeMeilleurs*count/100;
     Clavier lesMeilleurs[nbMeilleurs];
@@ -118,9 +125,16 @@ void Tribu::croiserPopulation(int percentageDeMeilleurs){
         ensembleSuccesseurs.push_back(Clavier(successeur));
     }
 
-    for(int i = 0; i < ensembleSuccesseurs.size(); i++){
-        population[i] = ensembleSuccesseurs.at(i);
+    if(remplacerParents){ //on remplace les parent par leurs enfants
+        for(int i = 0; i < ensembleSuccesseurs.size(); i++){
+            population[i] = ensembleSuccesseurs.at(i);
+        }
+    } else{ //on remplace les autres de la population par leurs enfants
+        for(int i = 0; i < ensembleSuccesseurs.size(); i++){ //ARCHI PAS TESTÉ
+            population[count - i -1] = ensembleSuccesseurs.at(i);
+        }
     }
+    
 
     this->sortByBest();
 }

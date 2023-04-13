@@ -25,6 +25,7 @@ float getScore();
 std::string getStringLigne(int ligne);
 void blank();
 int correctErrors();
+void mutationAleatoire(int nbPermutation);
 
 private:
     char touches[40];

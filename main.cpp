@@ -22,11 +22,11 @@ int main(int argc, char* argv[]) {
     t.sortByBest();
     t.displayPopulation(0, tailleLigne);
 
-    for(int i = 0; i < 10; i++){
-        t.croiserPopulation(30);
+    for(int i = 0; i < 1000; i++){
+        t.croiserPopulation(30, false); //stratégie de remplacement : écrasement des parents
         t.displayPopulation(0, tailleLigne);
         cout << "Croisement " << i << endl;
-        sleep(1); //mettre plus court
+        //sleep(1); //mettre plus court
     }
 
     //test de la sélection
