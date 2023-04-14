@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
         cout << "Croisement " << i << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
-        t.eliminerConsanguinité(percentageConsanguinite); //par défaut on accepte 5% de consanguinité
+        t.eliminerConsanguinité(percentageConsanguinite, percentageCroisement); //par défaut on accepte 5% de consanguinité
         t.displayPopulation(tailleLigne);
         usleep(waitTime*100000);
         //system("clear"); //clear terminal pour lisibilité

@@ -165,17 +165,21 @@ void Tribu::mutation(int percentage, int maxMutations){
 }
 
 //TODO : comprendre pourquoi ca marche pas!
-void Tribu::eliminerConsanguinité(int maxPercentageConsanguin){
+//Si deux calviers sont identiques, on mute un des deux
+//On ne traite que ceux qu'on croise pour économiser du cpu: les autres ne seront que peu ou pas atteints
+void Tribu::eliminerConsanguinité(int maxPercentageConsanguin, int percentageCroisement){
     int nbConsanguins = (int)count * maxPercentageConsanguin/100;
+    int champiooooons = (int)count * percentageCroisement/100; //autocorrect en sueur
     for(int i = 0; i < count; i++){
         for(int j = 0; j < i; j++){
             if(population[j].equals(population[i])){
                 if(nbConsanguins>0){
                     nbConsanguins--;
+                    cout << "nbConsanguins = " << nbConsanguins << endl;
                 } else {
                     population[i].mutationAleatoire(1); //une seule permutation devrait suffire
+                    cout << "mutation d'un consanguin" << endl;
                 }
-                //cout << nbConsanguins << endl;
             } 
         }
     }
