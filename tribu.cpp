@@ -185,3 +185,9 @@ void Tribu::eliminerConsanguinité(int maxPercentageConsanguin, int percentageCr
     }
 
 }
+
+//renvoi le meilleur score de la tribu actuelle
+//on suppose que la tribu a été triée
+float Tribu::getHighScore(){
+    return population[0].getScore();
+}

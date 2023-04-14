@@ -14,6 +14,7 @@ class Tribu {
     void sortByBest();
     void mutation(int percentage, int maxMutations);
     void eliminerConsanguinité(int maxPercentageConsanguin, int percentageCroisement);
+    float getHighScore();
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca

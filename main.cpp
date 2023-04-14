@@ -53,22 +53,37 @@ int main(int argc, char* argv[]) {
     t.sortByBest();
     t.displayPopulation(tailleLigne);
 
-    for(int i = 0; i < nbiterations; i++){
-        cout << "Croisement " << i << " sur " << nbiterations << endl;
+    vector<float> highScores; //contient la liste de tous les scores
+    int cptIteration = 0;
+    bool continuer = true;
+
+    while(cptIteration < 1000 && continuer){
+        cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
         t.eliminerConsanguinité(percentageConsanguinite, percentageCroisement); //par défaut on accepte 5% de consanguinité
         t.displayPopulation(tailleLigne);
+        highScores.push_back(t.getHighScore());
+
         usleep(waitTime*100000);
-        //system("clear"); //clear terminal pour lisibilité
+        cptIteration++;
     }
+
+
 
     //selection finale
     cout << "Resultat final:" << endl;
     t.sortByBest();
     t.displayPopulation(tailleLigne);
 
-    cout << "fin exec" << endl;
+    cout << "Fin exec par: ";
+    if(continuer){
+        cout << "limite d'itérations atteinte" << endl;
+    }
+    else{
+        cout << "Convergence" << endl;
+    }
+
     return 0;
 }
 
