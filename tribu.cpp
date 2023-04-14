@@ -164,16 +164,19 @@ void Tribu::mutation(int percentage, int maxMutations){
     }
 }
 
+//TODO : comprendre pourquoi ca marche pas!
 void Tribu::eliminerConsanguinité(int maxPercentageConsanguin){
     int nbConsanguins = (int)count * maxPercentageConsanguin/100;
     for(int i = 0; i < count; i++){
         for(int j = 0; j < i; j++){
-            if(population[j].equals(population[i]) && nbConsanguins >0){
-                nbConsanguins--;
-            }
-            else{
-                population[i].mutationAleatoire(1); //une seule permutation devrait suffire
-            }   
+            if(population[j].equals(population[i])){
+                if(nbConsanguins>0){
+                    nbConsanguins--;
+                } else {
+                    population[i].mutationAleatoire(1); //une seule permutation devrait suffire
+                }
+                //cout << nbConsanguins << endl;
+            } 
         }
     }
 

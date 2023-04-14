@@ -207,11 +207,10 @@ void Clavier::mutationAleatoire(int nbPermutations){
 
 //retourne vrai si le clavier est identique à l'actuel, faux sinon
 bool Clavier::equals(const Clavier& c){
-    bool res = true;
     for(int i = 0; i < 40; i++){
         if(this->getTouche(i) != c.getTouche(i)){
-            res = false;
+            return false;
         }
     }
-    return res;
+    return true;
 }
