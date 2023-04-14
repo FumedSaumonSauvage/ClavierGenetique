@@ -51,24 +51,22 @@ int main(int argc, char* argv[]) {
             
     Tribu t(nbIndividus);
     t.sortByBest();
-    t.displayPopulation(0, tailleLigne);
+    t.displayPopulation(tailleLigne);
 
     for(int i = 0; i < nbiterations; i++){
         cout << "Croisement " << i << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
         t.eliminerConsanguinité(percentageConsanguinite); //par défaut on accepte 5% de consanguinité
-        t.displayPopulation(0, tailleLigne);
+        t.displayPopulation(tailleLigne);
         usleep(waitTime*100000);
         //system("clear"); //clear terminal pour lisibilité
     }
 
-    //test de la sélection
-    cout << "Meilleurs: ";
-    for(int i : t.jeVeuxLesMeilleurs(10)){
-        cout << i << ", ";
-    }
-    cout << endl;
+    //selection finale
+    cout << "Resultat final:" << endl;
+    t.sortByBest();
+    t.displayPopulation(tailleLigne);
 
     cout << "fin exec" << endl;
     return 0;

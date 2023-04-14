@@ -8,7 +8,7 @@ class Tribu {
     Tribu(int cardinal);
     int getCount();
     Clavier getClavier(int index);
-    void displayPopulation(int sort, int nbColonnes);
+    void displayPopulation(int nbColonnes);
     std::vector<int> jeVeuxLesMeilleurs(int percentage);
     void croiserPopulation(int percentageDeMeilleurs, bool remplacerParents);
     void sortByBest();

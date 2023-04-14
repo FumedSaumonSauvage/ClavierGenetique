@@ -31,7 +31,7 @@ Clavier Tribu::getClavier(int index){
 //affiche à l'écran la population de claviers
 //sort = 0: pas de tri ; sort = 1 : tri par meilleur ; sort = 3: tri par pire
 //nbColonnes : nombre de claviers en largeur à afficher
-void Tribu::displayPopulation(int sort, int nbColonnes){
+void Tribu::displayPopulation(int nbColonnes){
     int nbCol = (nbColonnes>0) ? nbColonnes : 1 ;
     int cptClavier = 0;
     while(cptClavier < this->count){

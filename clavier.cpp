@@ -149,7 +149,7 @@ float Clavier::getScore(){
         score = -1;
     }
     
-    return score; // le meilleur score tend vers 0 
+    return 1/score; // le meilleur score tend vers beaucoup
 }
 
 string Clavier::getStringLigne(int ligne) {
