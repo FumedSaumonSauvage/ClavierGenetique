@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "clavier.hpp"
 #include "tribu.hpp"
+#include "liste.hpp"
 #include <vector>
 #include <unistd.h>
 #include <cstdlib>
@@ -57,16 +58,16 @@ int main(int argc, char* argv[]) {
     int cptIteration = 0;
     bool continuer = true;
 
-    while(cptIteration < 1000 && continuer){
+    while(t.convergence()){
         cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
-        t.eliminerConsanguinité(percentageConsanguinite, percentageCroisement); //par défaut on accepte 5% de consanguinité
+        t.eliminerConsanguinite(percentageConsanguinite, percentageCroisement); //par défaut on accepte 5% de consanguinité
         t.displayPopulation(tailleLigne);
         highScores.push_back(t.getHighScore());
 
-        usleep(waitTime*100000);
-        cptIteration++;
+        //usleep(waitTime*100000);
+        //cptIteration++;
     }
 
 

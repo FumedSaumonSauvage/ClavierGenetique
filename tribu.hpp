@@ -2,6 +2,7 @@
 #define TRIBU_HPP
 
 #include "clavier.hpp"
+#include "liste.hpp"
 
 class Tribu {
     public:
@@ -13,12 +14,14 @@ class Tribu {
     void croiserPopulation(int percentageDeMeilleurs, bool remplacerParents);
     void sortByBest();
     void mutation(int percentage, int maxMutations);
-    void eliminerConsanguinité(int maxPercentageConsanguin, int percentageCroisement);
+    void eliminerConsanguinite(int maxPercentageConsanguin, int percentageCroisement);
     float getHighScore();
+    bool convergence();
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca
     int count;
+    Liste <float> highscores; 
 };
 
 #endif

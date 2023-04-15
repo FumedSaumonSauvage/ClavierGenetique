@@ -167,7 +167,7 @@ void Tribu::mutation(int percentage, int maxMutations){
 //TODO : comprendre pourquoi ca marche pas!
 //Si deux calviers sont identiques, on mute un des deux
 //On ne traite que ceux qu'on croise pour économiser du cpu: les autres ne seront que peu ou pas atteints
-void Tribu::eliminerConsanguinité(int maxPercentageConsanguin, int percentageCroisement){
+void Tribu::eliminerConsanguinite(int maxPercentageConsanguin, int percentageCroisement){
     int nbConsanguins = (int)count * maxPercentageConsanguin/100;
     int champiooooons = (int)count * percentageCroisement/100; //autocorrect en sueur
     for(int i = 0; i < count; i++){
@@ -189,5 +189,24 @@ void Tribu::eliminerConsanguinité(int maxPercentageConsanguin, int percentageCr
 //renvoi le meilleur score de la tribu actuelle
 //on suppose que la tribu a été triée
 float Tribu::getHighScore(){
+    highscores.inserer(1, population[0].getScore());
+    if(highscores.taille() > 10 ){
+        highscores.supprimer(11);
+    }
     return population[0].getScore();
+}
+
+bool Tribu::convergence(){ //renvoie vrai lorsque les résultats converges
+    if(highscores.taille() < 9 ){
+        return false;
+    }else {
+        float sommeHighscores = 0;
+        for(int i = 0; i < 10 ;i++)
+            sommeHighscores += highscores.getNoeud(i);
+        if((highscores.getNoeud(0)*10 - sommeHighscores) < 1e-3 )
+            return true;
+        else
+            return false;
+             cout << "Convergence " << highscores.getNoeud(0)*10 - sommeHighscores << endl;
+    }
 }
