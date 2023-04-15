@@ -32,7 +32,7 @@ template <typename T>
 void Liste <T> :: inserer (int pos, const T& valeur)
 {
     if (pos < 0 || pos > compteur){
-        cout << "Erreur! La position est invalide." << endl;
+        cout << "Erreur! La position est invalide. (Liste)" << endl;
         return;
     }
     Noeud <T>* nouveau = CreerNoeud (valeur);

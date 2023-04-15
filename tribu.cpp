@@ -198,14 +198,16 @@ float Tribu::getHighScore(){
     return population[0].getScore();
 }
 
-bool Tribu::convergence(){ //renvoie vrai lorsque les résultats converges
+
+//valeucible : valeur de convergence
+bool Tribu::convergence(float valeurCible){ //renvoie vrai lorsque les résultats converges
     if(highscores.taille() < 10 ){
         return false;
     }else {
         float sommeHighscores = 0;
         for(int i = 0; i < 10 ;i++)
             sommeHighscores += highscores.getNoeud(i);
-        if( abs(highscores.getNoeud(0)*10 - sommeHighscores) < 1e-13 ){
+        if( abs(highscores.getNoeud(0)*10 - sommeHighscores) < valeurCible ){
             cout << "Convergence " <<  abs(highscores.getNoeud(0)*10 - sommeHighscores) << endl;
             return true;
         }

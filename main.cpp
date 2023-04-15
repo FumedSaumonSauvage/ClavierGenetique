@@ -56,9 +56,14 @@ int main(int argc, char* argv[]) {
 
     vector<float> highScores; //contient la liste de tous les scores
     int cptIteration = 0;
-    bool continuer = true;
 
-    while(!t.convergence() && cptIteration < 1001){
+    //DAMAGE CONTROL POUR RENDU TANT QUE CONVERGENCE CASSÉE
+    float valeurConvergence = 0;
+    nbiterations = 500;
+    //CCHANGER À 1e-40 et 1000 LES VALEURS SI CONVERGENCE FONCTIONNELLE
+
+
+    while(!t.convergence(valeurConvergence) && cptIteration < nbiterations){
         cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
@@ -77,7 +82,7 @@ int main(int argc, char* argv[]) {
     t.displayPopulation(tailleLigne);
 
     cout << "Fin exec par: ";
-    if(cptIteration > 999){
+    if(cptIteration >= 999){
         cout << "limite d'iterations atteinte" << endl;
         cout << t.convergenceScore() << endl;
     }

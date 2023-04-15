@@ -18,7 +18,7 @@ class Tribu {
     void mutation(int percentage, int maxMutations);
     void eliminerConsanguinite(int maxPercentageConsanguin, int percentageCroisement);
     float getHighScore();
-    bool convergence();
+    bool convergence(float valeurCible);
     float convergenceScore();
 
     private:
