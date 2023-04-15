@@ -15,8 +15,8 @@ using namespace std;
 int nbiterations = 1000;
 int percentageConsanguinite = 5;
 int percentageCroisement = 30;
-int percentageMutation = 50;
-int nbMaxMutations = 4;
+int percentageMutation = 80;
+int nbMaxMutations = 5;
 int nbIndividus = 50;
 int tailleLigne = 7;
 int waitTime = 1;
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     int cptIteration = 0;
     bool continuer = true;
 
-    while(!t.convergence()){
+    while(!t.convergence() && cptIteration < 1001){
         cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
@@ -77,11 +77,13 @@ int main(int argc, char* argv[]) {
     t.displayPopulation(tailleLigne);
 
     cout << "Fin exec par: ";
-    if(continuer){
-        cout << "limite d'itérations atteinte" << endl;
+    if(cptIteration > 999){
+        cout << "limite d'iterations atteinte" << endl;
+        cout << t.convergenceScore() << endl;
     }
     else{
-        cout << "Convergence" << endl;
+        cout << "Convergence : ";
+        cout << t.convergenceScore() << endl;
     }
 
     return 0;

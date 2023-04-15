@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
+#include <cmath>
 #include <vector>
 #include <string>
 #include <cctype> //toupper
@@ -192,22 +193,33 @@ void Tribu::eliminerConsanguinite(int maxPercentageConsanguin, int percentageCro
 float Tribu::getHighScore(){
     highscores.inserer(0, population[0].getScore());
     if(highscores.taille() > 10 ){
-        highscores.supprimer(11);
+        highscores.supprimer(10);
     }
     return population[0].getScore();
 }
 
 bool Tribu::convergence(){ //renvoie vrai lorsque les résultats converges
-    if(highscores.taille() < 9 ){
+    if(highscores.taille() < 10 ){
         return false;
     }else {
         float sommeHighscores = 0;
         for(int i = 0; i < 10 ;i++)
             sommeHighscores += highscores.getNoeud(i);
-        if((highscores.getNoeud(0)*10 - sommeHighscores) < 1e-3 )
+        if( abs(highscores.getNoeud(0)*10 - sommeHighscores) < 1e-13 ){
+            cout << "Convergence " <<  abs(highscores.getNoeud(0)*10 - sommeHighscores) << endl;
             return true;
-        else
+        }
+        else{
+            cout << "Convergence " <<  abs(highscores.getNoeud(0)*10 - sommeHighscores) << endl;
             return false;
-             cout << "Convergence " << highscores.getNoeud(0)*10 - sommeHighscores << endl;
+        }
+            
     }
+}
+
+float Tribu::convergenceScore(){
+    float sommeHighscores = 0;
+        for(int i = 0; i < 10 ;i++)
+            sommeHighscores += highscores.getNoeud(i);
+    return abs(highscores.getNoeud(0)*10 - sommeHighscores);
 }

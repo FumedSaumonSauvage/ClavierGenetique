@@ -19,6 +19,7 @@ class Tribu {
     void eliminerConsanguinite(int maxPercentageConsanguin, int percentageCroisement);
     float getHighScore();
     bool convergence();
+    float convergenceScore();
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca
