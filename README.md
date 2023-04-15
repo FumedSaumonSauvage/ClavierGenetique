@@ -3,7 +3,7 @@
 <h5>Compilation : g++ -std=c++11 main.cpp clavier.cpp tribu.cpp -o main</h5> </br>
 <h5>Lancement : ./main *options* </h5></br>
 <ul> Options de lancement:
-<li> --nbIterations : nombre total de génération (default = 1000) </li>
+<li> --nbIterations : nombre total de générations MAXIMUM (default = 1000) </li>
 <li>--percentageConsanguinite : pourcentage de consanguinité acceptable au sein de la population (default = 5) </li>
 <li>--percentageCroisement : pourcentage des meilleurs individus de la population à croiser à chaque génération (default = 30) </li>
 <li>--percentageMutation : pourcentage de la population qui développera une ou plusieurs mutation entre 2 générations (default = 50) </li>
