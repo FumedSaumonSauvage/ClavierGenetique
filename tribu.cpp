@@ -190,7 +190,7 @@ void Tribu::eliminerConsanguinite(int maxPercentageConsanguin, int percentageCro
 //renvoi le meilleur score de la tribu actuelle
 //on suppose que la tribu a été triée
 float Tribu::getHighScore(){
-    highscores.inserer(1, population[0].getScore());
+    highscores.inserer(0, population[0].getScore());
     if(highscores.taille() > 10 ){
         highscores.supprimer(11);
     }
