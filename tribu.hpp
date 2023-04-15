@@ -2,7 +2,9 @@
 #define TRIBU_HPP
 
 #include "clavier.hpp"
-#include "liste.hpp"
+#include "liste.cpp"
+
+
 
 class Tribu {
     public:

@@ -1,5 +1,6 @@
 #include "tribu.hpp"
 #include "clavier.hpp"
+#include "liste.cpp"
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>

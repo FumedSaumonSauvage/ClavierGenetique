@@ -1,7 +1,8 @@
 
+// Pris sur le site
 //https://developpement-informatique.com/article/487/les-listes-chainees-en-c++
-#ifndef LISTE_H
-#define LISTE_H
+#ifndef LISTE_HPP
+#define LISTE_HPP
  
 #include <iostream>
 #include <cassert>

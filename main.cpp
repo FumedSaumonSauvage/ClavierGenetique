@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include "clavier.hpp"
 #include "tribu.hpp"
-#include "liste.hpp"
+#include "liste.cpp"
 #include <vector>
 #include <unistd.h>
 #include <cstdlib>
-
-
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
     int cptIteration = 0;
     bool continuer = true;
 
-    while(t.convergence()){
+    while(!t.convergence()){
         cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
@@ -66,8 +66,7 @@ int main(int argc, char* argv[]) {
         t.displayPopulation(tailleLigne);
         highScores.push_back(t.getHighScore());
 
-        //usleep(waitTime*100000);
-        //cptIteration++;
+        cptIteration++;
     }
 
 
