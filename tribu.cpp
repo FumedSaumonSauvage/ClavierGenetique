@@ -201,28 +201,32 @@ float Tribu::getHighScore(){
 
 
 //valeucible : valeur de convergence
-bool Tribu::convergence(float valeurCible){ //renvoie vrai lorsque les résultats converges
+bool Tribu::convergence(double valeurCible){ //renvoie vrai lorsque les résultats converges
     if(highscores.taille() < 10 ){
         return false;
     }else {
-        float sommeHighscores = 0;
-        for(int i = 0; i < 10 ;i++)
-            sommeHighscores += highscores.getNoeud(i);
-        if( abs(highscores.getNoeud(0)*10 - sommeHighscores) < valeurCible ){
-            cout << "Convergence " <<  abs(highscores.getNoeud(0)*10 - sommeHighscores) << endl;
-            return true;
-        }
-        else{
-            cout << "Convergence " <<  abs(highscores.getNoeud(0)*10 - sommeHighscores) << endl;
-            return false;
-        }
-            
+        if(highscores.getNoeud(0) < 2.00000e-006){
+            double sommeHighscores = 0;
+            for(int i = 0; i < 10 ;i++)
+                sommeHighscores += highscores.getNoeud(i);
+            if( abs(highscores.getNoeud(0)*10 - sommeHighscores) < valeurCible ){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }else
+            return false;       
     }
 }
 
-float Tribu::convergenceScore(){
-    float sommeHighscores = 0;
+
+double Tribu::convergenceScore(){
+    double sommeHighscores = 0;
+    if(highscores.taille() == 10){
         for(int i = 0; i < 10 ;i++)
             sommeHighscores += highscores.getNoeud(i);
-    return abs(highscores.getNoeud(0)*10 - sommeHighscores);
+        return abs(highscores.getNoeud(0)*10 - sommeHighscores);
+    }
+        return -1;
 }

@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <chrono>
 #include <thread>
+#include<unistd.h>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ int nbMaxMutations = 5;
 int nbIndividus = 50;
 int tailleLigne = 7;
 int waitTime = 1;
+int panicMode = 0;
 
 
 void options(int argc, char* argv[]){
@@ -41,6 +43,8 @@ void options(int argc, char* argv[]){
             tailleLigne = atoi(argv[i+1]);
         }else if(s == "--waitTime"){
             waitTime = atoi(argv[i+1]);
+        }else if(s == "--panic"){
+            panicMode = 1;
         }
     }    
 }
@@ -57,21 +61,29 @@ int main(int argc, char* argv[]) {
     vector<float> highScores; //contient la liste de tous les scores
     int cptIteration = 0;
 
-    //DAMAGE CONTROL POUR RENDU TANT QUE CONVERGENCE CASSÉE
-    float valeurConvergence = 0;
-    nbiterations = 800;
-    //CCHANGER À 1e-40 et 1000 LES VALEURS SI CONVERGENCE FONCTIONNELLE
+    float valeurConvergence = 1e-014;
+    nbiterations = 1000;
+
+    bool arret = t.convergence(valeurConvergence);
 
 
-    while(!t.convergence(valeurConvergence) && cptIteration < nbiterations){
+    while(!arret && cptIteration < nbiterations){
         cout << "Croisement " << cptIteration << " sur " << nbiterations << endl;
         t.croiserPopulation(percentageCroisement, false); //stratégie de remplacement : écrasement des parents
         t.mutation(percentageMutation, nbMaxMutations);
         t.eliminerConsanguinite(percentageConsanguinite, percentageCroisement); //par défaut on accepte 5% de consanguinité
         t.displayPopulation(tailleLigne);
         highScores.push_back(t.getHighScore());
-
+        cout <<"Score de Convergence :"<< t.convergenceScore() << endl;
         cptIteration++;
+
+        //en mode panique absolue, on ne prend pas en compte la fonction de convergence
+        if(panicMode == 1){
+            arret = 0;
+        }
+        else{
+            arret = t.convergence(valeurConvergence);
+        }
     }
 
 

@@ -18,13 +18,13 @@ class Tribu {
     void mutation(int percentage, int maxMutations);
     void eliminerConsanguinite(int maxPercentageConsanguin, int percentageCroisement);
     float getHighScore();
-    bool convergence(float valeurCible);
-    float convergenceScore();
+    bool convergence(double valeurCible);
+    double convergenceScore();
 
     private:
     Clavier population[500]; //bien cradax, voir comment paramétriser ca
     int count;
-    Liste <float> highscores; 
+    Liste <double> highscores; 
 };
 
 #endif
