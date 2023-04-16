@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
 
     //DAMAGE CONTROL POUR RENDU TANT QUE CONVERGENCE CASSÉE
     float valeurConvergence = 0;
-    nbiterations = 500;
+    nbiterations = 800;
     //CCHANGER À 1e-40 et 1000 LES VALEURS SI CONVERGENCE FONCTIONNELLE
 
 
@@ -90,6 +90,9 @@ int main(int argc, char* argv[]) {
         cout << "Convergence : ";
         cout << t.convergenceScore() << endl;
     }
+
+    cout << "Meilleur Individu:" <<endl;
+    cout << t.getClavier(0).affichageClavier() << endl;
 
     return 0;
 }

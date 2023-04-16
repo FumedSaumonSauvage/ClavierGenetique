@@ -25,6 +25,7 @@ int Tribu::getCount(){
     return this->count;
 }
 
+//commence à 0
 Clavier Tribu::getClavier(int index){
     if(index >= this->count) cerr << "Index d'accès aux claviers trop grand!" << endl;
     return population[index];
@@ -177,10 +178,10 @@ void Tribu::eliminerConsanguinite(int maxPercentageConsanguin, int percentageCro
             if(population[j].equals(population[i])){
                 if(nbConsanguins>0){
                     nbConsanguins--;
-                    cout << "nbConsanguins = " << nbConsanguins << endl;
+                    //cout << "nbConsanguins = " << nbConsanguins << endl;
                 } else {
                     population[i].mutationAleatoire(1); //une seule permutation devrait suffire
-                    cout << "mutation d'un consanguin" << endl;
+                    //cout << "mutation d'un consanguin" << endl;
                 }
             } 
         }
