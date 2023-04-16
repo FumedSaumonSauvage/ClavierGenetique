@@ -3,6 +3,7 @@
 <h5>Compilation : g++ -std=c++11 main.cpp clavier.cpp tribu.cpp liste.cpp -o main</h5> </br>
 <h5>Lancement : ./main *options* </h5></br>
 <ul> Options de lancement:
+<li style="color: red;"> --panic : activer le mode de secours si la convergence ne fonctionne pas </li>
 <li> --nbIterations : nombre total de générations MAXIMUM (default = 1000) </li>
 <li>--percentageConsanguinite : pourcentage de consanguinité acceptable au sein de la population (default = 5) </li>
 <li>--percentageCroisement : pourcentage des meilleurs individus de la population à croiser à chaque génération (default = 30) </li>
@@ -14,4 +15,4 @@
 </ul>
 <br>
 <p>
-Exemple: ./main --nbIterations 1 --percentageConsanguinite 2 --percentageCroisement 3 --percentageMutation 4 --nbMaxMutations 5 --nbIndividus 6 --tailleLigne 7 --waitTime 8 </p>
+Exemple: ./main --nbIterations 1 --percentageConsanguinite 2 --percentageCroisement 3 --percentageMutation 4 --nbMaxMutations 5 --nbIndividus 6 --tailleLigne 7 --panic</p>
